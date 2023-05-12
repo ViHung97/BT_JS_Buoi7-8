@@ -38,10 +38,10 @@ getEle('btnDemSoDuong').onclick = function () {
 
 /**Tìm số nhỏ nhất */
 getEle('btnSoNhoNhat').onclick = function () {
-    var min = listSoNguyen = [0];
+    var min = listSoNguyen[0];
     for (var i = 0; i < listSoNguyen.length; i++) {
         var number = listSoNguyen[i]
-        if (number < min ) {
+        if (number < min) {
             min = number
         }
     };
@@ -50,16 +50,11 @@ getEle('btnSoNhoNhat').onclick = function () {
 
 /**Tìm số dương nhỏ nhất */
 getEle('btnSoDuongNhoNhat').onclick = function () {
-    var minDuong = listSoNguyen = [0];
+    var minDuong = Infinity;
     for (var i = 0; i < listSoNguyen.length; i++) {
-        var number1 = listSoNguyen[i]
-        if (number1 > 0) {
-            for (var j = i + 1; j < listSoNguyen.length; j++) {
-                var number2 = listSoNguyen[j]
-                if (number2 < number1) {
-                    minDuong = number2
-                };
-            };
+        var number = listSoNguyen[i]
+        if (number > 0 && number < minDuong) {
+            minDuong = number
         };
     };
     getEle('footerSoDuongNhoNhat').innerHTML = "Số dương nhỏ nhất là: " + minDuong;
@@ -67,17 +62,29 @@ getEle('btnSoDuongNhoNhat').onclick = function () {
 
 /**Số chẵn cuối cùng */
 getEle('btnSoChanCuoiCung').onclick = function () {
-    var listSoDuong = [];
-    var soChanCuoiCung = 0;
-    for (var i = 0; i < listSoNguyen.length; i++) {
-        var number1 = listSoNguyen[i];
-        if (number1 % 2 === 0) {
-            listSoDuong.push(number1);
-        } else {
-            soChanCuoiCung = -1;
+    var lastSoChan = -1;
+    for (var i = listSoNguyen.length - 1; i >= 0; i--) {
+        var number = listSoNguyen[i];
+        if (number % 2 === 0) {
+            lastSoChan = number;
+            break;
         };
-        console.log(soChanCuoiCung)
+
     };
 
-    getEle('footerSoChanCuoiCung').innerHTML = "Số dương nhỏ nhất là: " + soChanCuoiCung;
+    getEle('footerSoChanCuoiCung').innerHTML = "Số chẵn cuối cùng là: " + lastSoChan;
+};
+
+/**Thứ tự tăng dần*/
+getEle('btnTangDan').onclick = function () {
+    for (var i = 0; i < listSoNguyen.length - 1; i++) {
+        for (j = i + 1; j < listSoNguyen.length; j++) {
+            if (listSoNguyen[i] > listSoNguyen[j]) {
+                var number = listSoNguyen[j];
+                listSoNguyen[j] = listSoNguyen[i];
+                listSoNguyen[i] = number;
+            };
+        };
+    };
+    getEle('footerTangDan').innerHTML = "Thứ tự tăng dần: " + listSoNguyen;
 };
